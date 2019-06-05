@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>欲求ブレスト</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+</head>
+<body>
+
+	<div id="top_page" class="container" style="padding:50px; text-align:center;">
+		<h1>欲求ブレスト</h1>
+		<div class="form-group" style="padding-top:100px;">
+			<div class="form-inline justify-content-center">
+				<input type="number" id="limit" class="form-control" value="10" max="40" min="0" step="1" style="width:50px;">個まで
+			</div>
+		</div>
+		<button class="btn btn-primary" id="random_filter">ランダムに絞り込む</button>
+	</div>
+
+	<div id="list_page" class="container" style="display: none;">
+		<form>
+			<div id="want_list" class="list-group"></div>
+			<nobr>
+				<a class="btn btn-primary w-50" href="">戻る</a>
+				<button id="sender" class="btn btn-primary w-50 active">送信</button>
+			</nobr>
+		</form>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+	<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+	<script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+<script>
+var wants = ["実績", "好奇心", "地位", "競争", "貢献", "共感", "学び", "快楽", "支配", "承認", "交流", "理解", "家族", "お金", "笑", "健康", "睡眠", "飲食", "安全", "惰欲", "運動", "収集", "時間", "達成", "健康", "好奇心", "地位", "競争", "貢献", "自立", "デザイン", "支配", "承認", "交流", "共感", "所属", "収入", "快楽", "睡眠", "飲食", "理解", "愛", "安全", "収集", "運動", "時間", "💩"]
+
+random_filter.onclick = () => {
+	top_page.style.display = 'none'
+	for(let n in wants) {
+		let r = Math.floor(Math.random() * wants.length)
+		let tmp = wants[n]
+		wants[n] = wants[r]
+		wants[r] = tmp
+	}
+	for(let n = 0; n < limit.value; n++) {
+		let html = ''
+		html += '<label class="list-group-item checkbox-inline btn btn-primary waves-effect">'
+		html += '<input type="checkbox" class="form-control d-none" value="'+wants[n]+'">'
+		html += '<div>' + wants[n] + '</div>'
+		html += '</label>\n'
+		want_list.innerHTML += html
+		$('input[type="checkbox"]').change(() => {
+			$('input[type="checkbox"]').parent().removeClass('active')
+			$('input[type="checkbox"]:checked').parent().addClass('active')
+			console.log($('input[type="checkbox"]:checked'))
+		})
+	}
+	list_page.style.display = ''
+}
+sender.onclick = () => {
+	// 選択した項目を取得
+	var checkeds = document.querySelectorAll('input[type="checkbox"]:checked')
+	var data = []
+	for (let i = 0; i < checkeds.length; i++) {
+		let checked = checkeds[i]
+		data.push(checked.value)
+	}
+
+	var xhr = new XMLHttpRequest()
+	xhr.open('POST', 'https://script.google.com/macros/s/AKfycbwOMfK3wLaIyOghRr0OaqnBJXvg3RxHC3FsKXlQSdD3Q_f0IXEj/exec')
+	xhr.onload = () => {location.reload()}
+	xhr.send(JSON.stringify(data))
+}
+
+</script>
+</body>
+</html>
