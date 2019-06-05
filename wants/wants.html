@@ -35,6 +35,14 @@
 <script>
 var wants = ["実績", "好奇心", "地位", "競争", "貢献", "共感", "学び", "快楽", "支配", "承認", "交流", "理解", "家族", "お金", "笑", "健康", "睡眠", "飲食", "安全", "惰欲", "運動", "収集", "時間", "達成", "健康", "好奇心", "地位", "競争", "貢献", "自立", "デザイン", "支配", "承認", "交流", "共感", "所属", "収入", "快楽", "睡眠", "飲食", "理解", "愛", "安全", "収集", "運動", "時間", "💩"]
 
+document.body.onload = () => {
+	var limit_num = localStorage.getItem('limit')
+	if (limit_num == null) {
+		limit_num = 10
+	}
+	limit.value = limit_num
+}
+
 random_filter.onclick = () => {
 	top_page.style.display = 'none'
 	for(let n in wants) {
@@ -56,6 +64,7 @@ random_filter.onclick = () => {
 			console.log($('input[type="checkbox"]:checked'))
 		})
 	}
+	localStorage.setItem('limit', limit.value)
 	list_page.style.display = ''
 }
 sender.onclick = () => {
