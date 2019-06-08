@@ -88,12 +88,36 @@ sender.onclick = () => {
 	}
 
 	if (has_unko) {
-		if (confirm('💩が　おきあがり\nなかまに　なりたそうに　こちらをみている！\nなかまに　してあげますか？')) {
-			alert('💩<ありがとう！！！')
+		var r = Math.floor(Math.random() * 3)
+		switch(r){
+		case 0:
+			if (confirm('💩が　おきあがり\nなかまに　なりたそうに　こちらをみている！\nなかまに　してあげますか？')) {
+				alert('💩<ありがとう！！！')
+				alert('💩が　なかまに　なった')
+			} else {
+				alert('💩<クソが！！！')
+				return
+			}
+			break;
+		case 1:
+			apply_unko = confirm('💩<もし　わしの味方になれば\n世界の半分を　おまえにやろう')
+			really = 'ほんとう'
+			while (apply_unko == false) {
+				apply_unko = confirm('💩<'+really+'に　それで　よいのか？\nもう一度問おう　わしの　味方にならないか？')
+				really += 'のほんとう'
+			} 
+			alert('💩<...!')
 			alert('💩が　なかまに　なった')
-		} else {
-			alert('💩<クソが！！！')
-			return
+			break;
+		case 2:
+			if (confirm('💩<オレはこれまでずっと一人で戦ってきた。だが、お前となら...\n💩を仲間にしますか？')) {
+				alert('💩<不思議なきもちだ')
+				alert('💩が　なかまに　なった')
+			} else {
+				alert('💩<クソが！！！')
+				return
+			}
+			break;
 		}
 	}
 
