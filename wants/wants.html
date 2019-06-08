@@ -7,7 +7,9 @@
 	<link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
 </head>
 <body>
-
+	<div style="text-align:right;">
+		<a target="_blank" href="https://docs.google.com/spreadsheets/d/1I0lAJ4OrKXJMJk9Xwupik3zOZpEoPyycrWDInfC07Fo/edit?usp=sharing">スプレッドシートを開く</a>
+	</div>
 	<div id="top_page" class="container" style="padding:50px; text-align:center;">
 		<h1>欲求ブレスト</h1>
 		<div class="form-group" style="padding-top:100px;">
@@ -19,11 +21,13 @@
 	</div>
 
 	<div id="list_page" class="container" style="display: none;">
+		<h1>欲求ブレスト</h1>
+		<p>欲求を3つ選んで「送信」</p>
 		<form>
 			<div id="want_list" class="list-group"></div>
 			<nobr>
 				<a class="btn btn-primary w-50" href="">戻る</a>
-				<button id="sender" class="btn btn-primary w-50 active">送信</button>
+				<a id="sender" class="btn btn-primary w-50 active">送信</a>
 			</nobr>
 		</form>
 	</div>
@@ -53,10 +57,14 @@ random_filter.onclick = () => {
 	}
 	for(let n = 0; n < limit.value; n++) {
 		let html = ''
-		html += '<label class="list-group-item checkbox-inline btn btn-primary waves-effect">'
-		html += '<input type="checkbox" class="form-control d-none" value="'+wants[n]+'">'
+		html += '<label class="form-check list-group-item btn btn-primary waves-effect" style="border:1px solid #009688;">'
+		html += '<input type="checkbox" class="" value="'+wants[n]+'">'
 		html += '<div>' + wants[n] + '</div>'
 		html += '</label>\n'
+		// html += '<div class="custom-control custom-checkbox list-group-item btn btn-primary waves-effect" style="border:1px solid #009688;">'
+		// html += '<input type="checkbox" class="custom-control-input" id="want_'+n+'" value="'+wants[n]+'">'
+		// html += '<label class="custom-control-label" for="want_'+n+'">'+wants[n]+'</label>'
+		// html += '</div>'
 		want_list.innerHTML += html
 		$('input[type="checkbox"]').change(() => {
 			$('input[type="checkbox"]').parent().removeClass('active')
@@ -74,6 +82,11 @@ sender.onclick = () => {
 	for (let i = 0; i < checkeds.length; i++) {
 		let checked = checkeds[i]
 		data.push(checked.value)
+	}
+
+	if (data.length == 0) {
+		alert('1つ以上選択してください')
+		return
 	}
 
 	var xhr = new XMLHttpRequest()

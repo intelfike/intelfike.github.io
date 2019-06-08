@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<head>
+<script>
+function zerofill(num, len) {
+	return ('0'.repeat(len) + num).slice(-2)
+}
+
+function getFormatedTime(date, hd = 0, md = 0) {
+	var hh = zerofill(date.getHours() + hd, 2)
+	var minute = date.getMinutes()
+	var mm = zerofill(Math.floor(minute/10)*10 + md, 2)
+	return hh + ':' + mm
+}
+
+var mynameis = ''
+
+var url_query = []
+var date = new Date()
+
+url_query.push('entry_198284284=' + mynameis)
+
+var YYYY = date.getFullYear()
+var MM = zerofill(date.getMonth() + 1, 2)
+var dd = zerofill(date.getDate(), 2)
+var date_text = YYYY + '-' + MM + '-' + dd
+url_query.push('entry_1185190261=' + date_text)
+
+url_query.push('entry_1522336979=' + getFormatedTime(date, -3))
+
+url_query.push('entry_302993934=' + getFormatedTime(date))
+
+location.href = "https://docs.google.com/forms/d/e/1FAIpQLSfLb68wPHhdzPuf2FEhvant1d47axTAXLtPH4xk-NKIm4OKng/viewform?" + url_query.join('&')
+</script>
+</head>
+
+<body>
+	
+</body>
